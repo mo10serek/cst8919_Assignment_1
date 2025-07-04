@@ -30,7 +30,7 @@ def log(description):
     email = session.get("user").get("userinfo").get("email")
     user_id = session.get("user").get("userinfo").get("sub").split('|', 1)
     datetime = session.get("user").get("userinfo").get("updated_at")
-    print(f'user id: {user_id.get(1)}, email: {email}, timestamp: {datetime}, description: {description}')
+    print(f'user id: {user_id}, email: {email}, timestamp: {datetime}, description: {description}')
     app.logger.info(f'user id: {user_id}, email: {email}, timestamp: {datetime}, description: {description}')
 
 
