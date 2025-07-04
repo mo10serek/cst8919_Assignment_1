@@ -31,7 +31,7 @@ def log(description):
     user_id = session.get("user").get("userinfo").get("sub").split('|', 1)
     datetime = session.get("user").get("userinfo").get("updated_at")
     print(f'user id: {user_id}, email: {email}, timestamp: {datetime}, description: {description}')
-    app.logger.info(f'user id: {user_id}, email: {email}, timestamp: {datetime}, description: {description}')
+    app.logger.info(description, extra={"user id": {user_id}, "email": {email}, "timestamp": {datetime}})
 
 
 # Controllers API
@@ -58,7 +58,7 @@ def callback():
 
 @app.route("/login")
 def login():
-    app.logger.info("the user tried to log in")
+    log("the user tried to log in")
     return oauth.auth0.authorize_redirect(
         redirect_uri=url_for("callback", _external=True, _scheme="https")
     )
@@ -84,7 +84,7 @@ def logout():
 @app.route("/protected")
 def protected():
     #asdf
-    app.logger.info(f'the user {session.get("user").get("userinfo").get("sub").split('|', 1)} is trying to access the protected page')
+    log("the user is trying to access the protected page")
     print("the user is trying to access the protected page")
     if 'user' in session:
         return render_template("protected.html")
