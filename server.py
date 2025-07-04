@@ -31,13 +31,13 @@ def log(description):
     user_id = session.get("user").get("userinfo").get("sub").split('|', 1)
     datetime = session.get("user").get("userinfo").get("updated_at")
     print(f'user id: {user_id}, email: {email}, timestamp: {datetime}, description: {description}')
-    app.logger.info(description, 
-                    extra={
-                        "user id": user_id, 
-                        "email": email, 
-                        "timestamp": datetime
-                        }
-                    )
+    #app.logger.info(description, 
+    #                extra={
+    #                    "user id": user_id, 
+    #                    "email": email, 
+    #                    "timestamp": datetime
+    #                    }
+    #                )
 
 
 # Controllers API
@@ -54,6 +54,7 @@ def home():
 @app.route("/callback", methods=["GET", "POST"])
 def callback():
     token = oauth.auth0.authorize_access_token()
+    app.logger.info("callback")
     session["user"] = token
     if not 'user' in session:
         app.logger.info("the user has unauthorized attempt")
@@ -71,6 +72,7 @@ def login():
 
 @app.route("/logout")
 def logout():
+    app.logger.info("the user log out")
     session.clear()
     return redirect(
         "https://"
