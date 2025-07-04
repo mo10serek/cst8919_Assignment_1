@@ -52,7 +52,6 @@ def callback():
     if not 'user' in session:
         app.logger.info("the user has unauthorized attempt")
         print("the user has unauthorized attempt")
-    log("the webpage is returing to the home page")
     return redirect("/")
 
 
