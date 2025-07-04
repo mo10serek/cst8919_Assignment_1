@@ -82,8 +82,7 @@ def logout():
 
 @app.route("/protected")
 def protected():
-    #asdf
-    log("the user is trying to access the protected page")
+    app.logger.info("the user is trying to access the protected page")
     print("the user is trying to access the protected page")
     if 'user' in session:
         return render_template("protected.html")
