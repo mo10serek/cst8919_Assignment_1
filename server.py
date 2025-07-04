@@ -83,6 +83,7 @@ def logout():
 
 @app.route("/protected")
 def protected():
+    #asdf
     app.logger.info(f'the user {session.get("user").get("userinfo").get("sub").split('|', 1)} is trying to access the protected page')
     print("the user is trying to access the protected page")
     if 'user' in session:
