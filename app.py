@@ -55,7 +55,6 @@ def log(description):
 # Controllers API
 @app.route("/")
 def home():
-    log("the user is trying to log in")
     return render_template(
         "home.html",
         session=session.get("user"),
