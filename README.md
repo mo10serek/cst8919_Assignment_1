@@ -128,3 +128,58 @@ Test the quere by entering and exiting the protected page more than ten times an
 
 ## Create Azure Alert 
 
+Go to the Monitor resource and then the alerts tab and create a new alert rule. 
+
+### Scope
+
+In the Scope section, click `Select scope` and select the Log Analytics workspace resource that is under group resource and subscription. 
+
+### Condition
+
+In the Condition section, select Custom log search in the Signal name and fill in the Search query:
+
+AppServiceConsoleLogs 
+| where ResultDescription has "protected"
+| where ResultDescription has "user id"
+| where TimeGenerated > ago(15m)
+| extend useridStart = indexof(ResultDescription, "user id: ") + 9
+| extend useridEnd = indexof(ResultDescription, "email", useridStart) - 2
+| extend user_id = substring(ResultDescription, useridStart, useridEnd - useridStart)
+| extend timestampStart = indexof(ResultDescription, "timestamp: ") + 11
+| extend timestampEnd = indexof(ResultDescription, "description", timestampStart) - 2
+| extend timestamp = substring(ResultDescription, timestampStart, timestampEnd - timestampStart)
+| extend useridStart = indexof(ResultDescription, "user id: ") + 9
+| extend useridEnd = indexof(ResultDescription, "email", useridStart) - 2
+| extend user_id = substring(ResultDescription, useridStart, useridEnd - useridStart)
+| extend timestampStart = indexof(ResultDescription, "timestamp: ") + 11
+| extend timestampEnd = indexof(ResultDescription, "description", timestampStart) - 2
+| extend timestamp = substring(ResultDescription, timestampStart, timestampEnd - timestampStart)
+
+and fill in the remaining details:
+
+#### Measurement
+
+- **Measure**: "Table rows"
+- **Aggregation type**: "Count"
+- **Aggregation granularity** : "15 minutes"
+
+#### Alert logic
+
+- **Operator**: "Greater than"
+- **Threshold value**: "10"
+- **Frequency of evaluation**: "15 minutes"
+
+### Action
+
+go and create an Action group and fill in the Resource group, Region, Action group name, and Display name in basics. In notification, select `Email/SMS message/Push/Voice` and check the email box. After that, enter your email and select okay. Also put the name of the notification type as well
+
+### Detaills
+
+Fill the resource group you are in, Serverity as `3 - Informational`, Alert rule name, Alert rule description, and Region as `East US`
+
+After that create your resorce. 
+
+## Testing Azure Alert
+
+After you created the alert rule and action group, you will recive an email that you been regester to the action group. In order to test the alert rule, you need to enter the protected page more than 10 times. Wait for a moment and you will recive an email that a user is accessing the protected webpage more than 10 times.
+
