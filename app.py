@@ -22,7 +22,8 @@ handler.setLevel(logging.INFO)
 formatter = logging.Formatter('[%(asctime)s] %(levelname)s in %(module)s: %(message)s')
 handler.setFormatter(formatter)
 
-app.logger.handlers = [handler]   # Replace default handlers
+app.logger.handlers = []   # Replace default handlers
+app.logger.addHandler(handler)
 app.logger.setLevel(logging.INFO)
 
 oauth = OAuth(app)
