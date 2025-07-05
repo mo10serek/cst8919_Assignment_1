@@ -182,3 +182,6 @@ After that create your resource.
 ## Testing Azure Alert
 
 After you created the alert rule and action group, you will receive an email that you been register to the action group. To test the alert rule, you need to enter the protected page more than 10 times. Wait for a moment and you will receive an email that a user is accessing the protected webpage more than 10 times.
+
+## Video Demo
+

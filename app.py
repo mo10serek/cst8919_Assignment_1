@@ -56,7 +56,6 @@ def home():
 @app.route("/callback", methods=["GET", "POST"])
 def callback():
     token = oauth.auth0.authorize_access_token()
-    app.logger.info("callback")
     session["user"] = token
     log("the user log in")
     if not 'user' in session:
@@ -94,7 +93,6 @@ def logout():
 @app.route("/protected")
 def protected():
     log("the user is trying to access the protected page")
-    print("the user is trying to access the protected page")
     if 'user' in session:
         return render_template("protected.html")
     else:
