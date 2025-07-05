@@ -55,6 +55,10 @@ def log(description):
 # Controllers API
 @app.route("/")
 def home():
+    if 'user' in session:
+        app.logger.info("the user is trying to log in")
+    else:
+        log("the user log in")
     return render_template(
         "home.html",
         session=session.get("user"),
@@ -75,7 +79,7 @@ def callback():
 
 @app.route("/login")
 def login():
-    app.logger.info("the user tried to log in")
+    log("the user tried to log in")
     return oauth.auth0.authorize_redirect(
         redirect_uri=url_for("callback", _external=True, _scheme="https")
     )
