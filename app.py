@@ -15,17 +15,6 @@ if ENV_FILE:
 app = Flask(__name__)
 app.secret_key = env.get("APP_SECRET_KEY")
 
-# Explicitly configure logging to stdout
-handler = logging.StreamHandler(sys.stdout)
-handler.setLevel(logging.INFO)
-
-formatter = logging.Formatter('[%(asctime)s] %(levelname)s in %(module)s: %(message)s')
-handler.setFormatter(formatter)
-
-app.logger.handlers = []   # Replace default handlers
-app.logger.addHandler(handler)
-app.logger.setLevel(logging.INFO)
-
 oauth = OAuth(app)
 
 oauth.register(
