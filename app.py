@@ -55,10 +55,10 @@ def log(description):
 # Controllers API
 @app.route("/")
 def home():
-    if 'user' in session:
-        app.logger.info("the user is trying to log in")
-    else:
-        log("the user log in")
+    #if 'user' in session:
+    #    app.logger.info("the user is trying to log in")
+    #else:
+    #    log("the user log in")
     return render_template(
         "home.html",
         session=session.get("user"),
