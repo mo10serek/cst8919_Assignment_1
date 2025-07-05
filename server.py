@@ -5,6 +5,8 @@ from urllib.parse import quote_plus, urlencode
 from authlib.integrations.flask_client import OAuth
 from dotenv import find_dotenv, load_dotenv
 from flask import Flask, redirect, render_template, session, url_for
+import logging
+import sys
 
 ENV_FILE = find_dotenv()
 if ENV_FILE:
@@ -13,6 +15,15 @@ if ENV_FILE:
 app = Flask(__name__)
 app.secret_key = env.get("APP_SECRET_KEY")
 
+# Explicitly configure logging to stdout
+handler = logging.StreamHandler(sys.stdout)
+handler.setLevel(logging.INFO)
+
+formatter = logging.Formatter('[%(asctime)s] %(levelname)s in %(module)s: %(message)s')
+handler.setFormatter(formatter)
+
+app.logger.handlers = [handler]   # Replace default handlers
+app.logger.setLevel(logging.INFO)
 
 oauth = OAuth(app)
 
@@ -31,19 +42,24 @@ def log(description):
     user_id = session.get("user").get("userinfo").get("sub").split('|', 1)
     datetime = session.get("user").get("userinfo").get("updated_at")
     print(f'user id: {user_id}, email: {email}, timestamp: {datetime}, description: {description}')
-    #app.logger.info(description, 
-    #                extra={
-    #                    "user id": user_id, 
-    #                    "email": email, 
-    #                    "timestamp": datetime
-    #                    }
-    #                )
+    app.logger.info(json.dumps({
+                        "descripton": description, 
+                        "user id": user_id, 
+                        "email": email, 
+                        "timestamp": datetime
+                        })
+                    )
 
 
 # Controllers API
 @app.route("/")
 def home():
-    app.logger.info("the window had opened")
+    app.logger.info(json.dumps({
+                       "user id": "safsf", 
+                        "email": "asdfadsf", 
+                        "timestamp": "asdfadsf"
+                        }
+                    ))
     return render_template(
         "home.html",
         session=session.get("user"),
