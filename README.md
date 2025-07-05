@@ -1,6 +1,27 @@
-# CST 8919 Lab 1: Implementing User Login with Flask and Auth0
+# CST 8919 Assignment 1: 
 
-This lab shows how to have a starter version of using Flask and Auth0 modules when developing a program for secure authentication.
+This assignment shows what is 
+
+AppServiceConsoleLogs 
+| where ResultDescription has "protected"
+| where ResultDescription has "user id"
+| where TimeGenerated > ago(15m)
+| extend useridStart = indexof(ResultDescription, "user id: ") + 9
+| extend useridEnd = indexof(ResultDescription, "email", useridStart) - 2
+| extend user_id = substring(ResultDescription, useridStart, useridEnd - useridStart)
+| extend timestampStart = indexof(ResultDescription, "timestamp: ") + 11
+| extend timestampEnd = indexof(ResultDescription, "description", timestampStart) - 2
+| extend timestamp = substring(ResultDescription, timestampStart, timestampEnd - timestampStart)
+| extend useridStart = indexof(ResultDescription, "user id: ") + 9
+| extend useridEnd = indexof(ResultDescription, "email", useridStart) - 2
+| extend user_id = substring(ResultDescription, useridStart, useridEnd - useridStart)
+| extend timestampStart = indexof(ResultDescription, "timestamp: ") + 11
+| extend timestampEnd = indexof(ResultDescription, "description", timestampStart) - 2
+| extend timestamp = substring(ResultDescription, timestampStart, timestampEnd - timestampStart)
+| summarize number_of_times_user_log = count() by user_id, timestamp
+| where number_of_times_user_log > 10
+| project user_id, timestamp, number_of_times_user_log
+
 
 # Running the App
 
