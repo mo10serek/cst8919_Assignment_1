@@ -78,7 +78,7 @@ def callback():
 
 @app.route("/login")
 def login():
-    log("the user tried to log in")
+    app.logger.info("the user is going to log in")
     return oauth.auth0.authorize_redirect(
         redirect_uri=url_for("callback", _external=True, _scheme="https")
     )
@@ -86,7 +86,7 @@ def login():
 
 @app.route("/logout")
 def logout():
-    app.logger.info("the user log out")
+    app.logger.info("the user is going to log out")
     session.clear()
     return redirect(
         "https://"
@@ -104,7 +104,7 @@ def logout():
 
 @app.route("/protected")
 def protected():
-    app.logger.info("the user is trying to access the protected page")
+    log("the user is trying to access the protected page")
     print("the user is trying to access the protected page")
     if 'user' in session:
         return render_template("protected.html")
