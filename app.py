@@ -55,12 +55,7 @@ def log(description):
 # Controllers API
 @app.route("/")
 def home():
-    app.logger.info(json.dumps({
-                       "user id": "safsf", 
-                        "email": "asdfadsf", 
-                        "timestamp": "asdfadsf"
-                        }
-                    ))
+    log("the user is trying to log in")
     return render_template(
         "home.html",
         session=session.get("user"),
