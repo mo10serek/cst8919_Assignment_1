@@ -54,7 +54,6 @@ def log(description):
 # Controllers API
 @app.route("/")
 def home():
-    print("the user open the page")
     app.logger.info("the user open the page")
 
     return render_template(
@@ -78,7 +77,6 @@ def callback():
 @app.route("/login")
 def login():
     app.logger.info("the user is going to log in")
-    print("the user is going to log in")
     return oauth.auth0.authorize_redirect(
         redirect_uri=url_for("callback", _external=True, _scheme="https")
     )
@@ -87,7 +85,6 @@ def login():
 @app.route("/logout")
 def logout():
     app.logger.info("the user is going to log out")
-    print("the user is going to log out")
     session.clear()
     return redirect(
         "https://"
@@ -107,11 +104,9 @@ def logout():
 def protected():
     if 'user' in session:
         log("the user is trying to access the protected page")
-        print("the user is trying to access the protected page")
         return render_template("protected.html")
     else:
         app.logger.info("the user is trying to access the protected page but not able to access it")
-        print("the user is trying to access the protected page but not able to access it")
         return redirect("/login")
 
 if __name__ == "__main__":
