@@ -77,6 +77,10 @@ def callback():
 @app.route("/login")
 def login():
     app.logger.info("the user is going to log in")
+    token = oauth.auth0.authorize_access_token()
+    if token == None:
+        app.logger.warning("the user has unauthorized attempt")
+        print("the user has unauthorized attempt")
     return oauth.auth0.authorize_redirect(
         redirect_uri=url_for("callback", _external=True, _scheme="https")
     )
