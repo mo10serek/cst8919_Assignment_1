@@ -191,3 +191,4 @@ After you created the alert rule and action group, you will receive an email tha
 
 ## Video Demo
 
+[Video link](https://youtu.be/Sf2HJxcfIXc)
