@@ -80,9 +80,13 @@ Then go to Deployment Center tab and fill in the following detail:
 
 Then save the changes and you will see that it is connected to the repository.
 
+## adding the application URIs
+
+when login in and login out, you will receive errors from auth_0. In order to fix that, go to your auth_0 account and go to Application > Application and select the application you are using for the web app. Then go to settings and add the default domain found in your Web App resource `Allowed Callback URLs` with /callback added as the endpoint. Also add the default domain to `Allowed Logout URLs` without the `s` in `https`.
+
 ## logging explanation
 
-the function to print the logs are `app.logger.info()` where they are located in each endpoint explaning the status of the program. However in the protected and callback endpoints, it calls the log function which prints out the user id, email, and timestamp. These values are printed out because ones the user is log in, it get the json file in session and gets all of the information from the log in user. These logs are printed out in log
+the function to print the logs are `app.logger.info()` where they are located in each endpoint explaining the status of the program. However, in the protected and callback endpoints, it calls the log function which prints out the user id, email, and timestamp. These values are printed out because ones the user is log in, it gets the Json file in session and gets all the information from the log in user. These logs are printed out in log.
 
 # Monitoring and Detection
 
@@ -108,6 +112,7 @@ There is check `AppServiceConsoleLogs` and `HTTPLogs` and select the name of you
 
 Go to Log tab in Log Analytics workspace and fill in the following KQL query.
 
+```bash
 AppServiceConsoleLogs 
 | where ResultDescription has "protected"
 | where ResultDescription has "user id"
@@ -127,6 +132,7 @@ AppServiceConsoleLogs
 | summarize number_of_times_user_log = count() by user_id, timestamp
 | where number_of_times_user_log > 10
 | project user_id, timestamp, number_of_times_user_log
+```
 
 Test the query by entering and exiting the protected page more than ten times and you will see the `user_id`, `timestamp` and `number_of_times_user_log` columns shown.
 
@@ -142,6 +148,7 @@ In the Scope section, click `Select scope` and select the Log Analytics workspac
 
 In the Condition section, select Custom log search in the Signal name and fill in the Search query:
 
+```bash
 AppServiceConsoleLogs 
 | where ResultDescription has "protected"
 | where ResultDescription has "user id"
@@ -158,6 +165,7 @@ AppServiceConsoleLogs
 | extend timestampStart = indexof(ResultDescription, "timestamp: ") + 11
 | extend timestampEnd = indexof(ResultDescription, "description", timestampStart) - 2
 | extend timestamp = substring(ResultDescription, timestampStart, timestampEnd - timestampStart)
+```
 
 and fill in the remaining details:
 
@@ -175,7 +183,7 @@ and fill in the remaining details:
 
 ### Action
 
-go and create an Action group and fill in the Resource group, Region, Action group name, and Display name in basics. In notification, select `Email/SMS message/Push/Voice` and check the email box. After that, enter your email and select okay. Also put the name of the notification type as well
+go and create an Action group and fill in the Resource group, Region, Action group name, and Display name in basics. In notification, select `Email/SMS message/Push/Voice` and check the email box. After that, enter your email and select okay. Also put the name of the notification type as well.
 
 ### Details
 
