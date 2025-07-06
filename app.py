@@ -91,10 +91,11 @@ def logout():
 
 @app.route("/protected")
 def protected():
-    log("the user is trying to access the protected page")
     if 'user' in session:
+        log("the user is trying to access the protected page")
         return render_template("protected.html")
     else:
+        app.logger.info("the user is trying to access the protected page but not able to access it")
         return redirect("/login")
 
 if __name__ == "__main__":
