@@ -99,4 +99,10 @@ def protected():
         return redirect("/login")
 
 if __name__ == "__main__":
+    app.logger.setLevel(logging.INFO)
+    # Optionally log to stdout too
+    handler = logging.StreamHandler()
+    handler.setLevel(logging.INFO)
+    app.logger.addHandler(handler)
+
     app.run(host="0.0.0.0", port=env.get("PORT", 3000))
