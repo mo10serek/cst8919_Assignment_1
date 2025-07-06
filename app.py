@@ -106,7 +106,7 @@ def protected():
         log("the user is trying to access the protected page")
         return render_template("protected.html")
     else:
-        app.logger.info("the user is trying to access the protected page but not able to access it")
+        app.logger.warning("the user is trying to access the protected page but but has unauthorized access")
         return redirect("/login")
 
 if __name__ == "__main__":
