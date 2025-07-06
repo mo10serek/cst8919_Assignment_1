@@ -1,25 +1,29 @@
-### Valid Auth0 token request
-POST https://AUTH0_DOMAIN/oauth/token
+### valid Auth0 token request (right password)
+POST https://dev-fd74jehlrzok5d1g.us.auth0.com/oauth/token
 Content-Type: application/json
 
 {
   "grant_type": "password",
   "username": "balc0022@algonquinlive.com",
   "password": "mX10baz3!",
+  "audience": "https://dev-fd74jehlrzok5d1g.us.auth0.com/api/v2/",
   "scope": "openid",
-  "client_id": "AUTH0_CLIENT_ID",
-  "client_secret": "AUTH0_CLIENT_SECRET"
+  "client_id": "TkHxHvIiLXFR6cq7DnHdKU3IhYgIIOoV",
+  "client_secret": "tzaTYXR2Z2rGybU7paowHGOVS6ptXM3oyUSRhVmii5CPvFdC4lq7GKrOElblHVgV",
+  "realm": "Username-Password-http-request"
 }
 
 ### Invalid Auth0 token request (wrong password)
-POST https://YOUR_DOMAIN.auth0.com/oauth/token
-Content-Type: application/json
+POST https://dev-fd74jehlrzok5d1g.us.auth0.com/oauth/token
 
+Content-Type: application/json
 {
   "grant_type": "password",
   "username": "balc0022@algonquinlive.com",
-  "password": "mX10baz3!!!!",
+  "password": "mX10baz3!",
+  "audience": "https://dev-fd74jehlrzok5d1g.us.auth0.com/api/v2/",
   "scope": "openid",
-  "client_id": "AUTH0_CLIENT_ID",
-  "client_secret": "AUTH0_CLIENT_SECRET"
+  "client_id": "TkHxHvIiLXFR6cq7DnHdKU3IhYgIIOoV",
+  "client_secret": "tzaTYXR2Z2rGybU7paowHGOVS6ptXM3oyUSRhVmii5CPvFdC4lq7GKrOElblHVgV",
+  "realm": "Username-Password-Authentication"
 }
