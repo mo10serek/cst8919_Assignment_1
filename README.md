@@ -80,6 +80,10 @@ Then go to Deployment Center tab and fill in the following detail:
 
 Then save the changes and you will see that it is connected to the repository.
 
+## logging explanation
+
+the function to print the logs are `app.logger.info()` where they are located in each endpoint explaning the status of the program. However in the protected and callback endpoints, it calls the log function which prints out the user id, email, and timestamp. These values are printed out because ones the user is log in, it get the json file in session and gets all of the information from the log in user. These logs are printed out in log
+
 # Monitoring and Detection
 
 ## make the KQL Query

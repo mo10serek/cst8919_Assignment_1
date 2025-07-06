@@ -31,7 +31,6 @@ def log(description):
     email = session.get("user").get("userinfo").get("email")
     user_id = session.get("user").get("userinfo").get("sub").split('|', 1)[1]
     datetime = session.get("user").get("userinfo").get("updated_at")
-    print(f'user id: {user_id}, email: {email}, timestamp: {datetime}, description: {description}')
     app.logger.info(json.dumps({
                         "descripton": description, 
                         "user id": user_id, 
