@@ -17,6 +17,17 @@ app.secret_key = env.get("APP_SECRET_KEY")
 
 oauth = OAuth(app)
 
+# Explicitly configure logging to stdout
+handler = logging.StreamHandler(sys.stdout)
+handler.setLevel(logging.INFO)
+
+formatter = logging.Formatter('[%(asctime)s] %(levelname)s in %(module)s: %(message)s')
+handler.setFormatter(formatter)
+
+app.logger.handlers = []   # Replace default handlers
+app.logger.addHandler(handler)
+app.logger.setLevel(logging.INFO)
+
 oauth.register(
     "auth0",
     client_id=env.get("AUTH0_CLIENT_ID"),
@@ -43,7 +54,7 @@ def log(description):
 # Controllers API
 @app.route("/")
 def home():
-    print("the user open the paget")
+    print("the user open the page")
     app.logger.info("the user open the page")
 
     return render_template(
@@ -104,12 +115,4 @@ def protected():
         return redirect("/login")
 
 if __name__ == "__main__":
-    app.logger.setLevel(logging.INFO)
-    # Optionally log to stdout too
-    handler = logging.StreamHandler(sys.stdout)
-    handler.setLevel(logging.INFO)
-
-    if not app.logger.hasHandlers():  # avoid adding twice
-        app.logger.addHandler(handler)
-
     app.run(host="0.0.0.0", port=env.get("PORT", 3000))
