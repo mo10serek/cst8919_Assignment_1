@@ -9,8 +9,7 @@ Content-Type: application/json
   "audience": "https://dev-fd74jehlrzok5d1g.us.auth0.com/api/v2/",
   "scope": "openid",
   "client_id": "TkHxHvIiLXFR6cq7DnHdKU3IhYgIIOoV",
-  "client_secret": "tzaTYXR2Z2rGybU7paowHGOVS6ptXM3oyUSRhVmii5CPvFdC4lq7GKrOElblHVgV",
-  "realm": "Username-Password-http-request"
+  "client_secret": "tzaTYXR2Z2rGybU7paowHGOVS6ptXM3oyUSRhVmii5CPvFdC4lq7GKrOElblHVgV"
 }
 
 ### Invalid Auth0 token request (wrong password)
@@ -20,10 +19,9 @@ Content-Type: application/json
 {
   "grant_type": "password",
   "username": "balc0022@algonquinlive.com",
-  "password": "mX10baz3!",
+  "password": "mX10baz3!!!!",
   "audience": "https://dev-fd74jehlrzok5d1g.us.auth0.com/api/v2/",
   "scope": "openid",
   "client_id": "TkHxHvIiLXFR6cq7DnHdKU3IhYgIIOoV",
   "client_secret": "tzaTYXR2Z2rGybU7paowHGOVS6ptXM3oyUSRhVmii5CPvFdC4lq7GKrOElblHVgV",
-  "realm": "Username-Password-Authentication"
 }
