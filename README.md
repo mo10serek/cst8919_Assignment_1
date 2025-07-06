@@ -147,17 +147,11 @@ AppServiceConsoleLogs
 | where ResultDescription has "protected"
 | where ResultDescription has "user id"
 | where TimeGenerated > ago(15m)
-| extend useridStart = indexof(ResultDescription, "user id: ") + 9
-| extend useridEnd = indexof(ResultDescription, "email", useridStart) - 2
+| extend useridStart = indexof(ResultDescription, '"user id": "') + strlen('"user id": "')
+| extend useridEnd = indexof(ResultDescription, '"email": "', useridStart) - 3
 | extend user_id = substring(ResultDescription, useridStart, useridEnd - useridStart)
-| extend timestampStart = indexof(ResultDescription, "timestamp: ") + 11
-| extend timestampEnd = indexof(ResultDescription, "description", timestampStart) - 2
-| extend timestamp = substring(ResultDescription, timestampStart, timestampEnd - timestampStart)
-| extend useridStart = indexof(ResultDescription, "user id: ") + 9
-| extend useridEnd = indexof(ResultDescription, "email", useridStart) - 2
-| extend user_id = substring(ResultDescription, useridStart, useridEnd - useridStart)
-| extend timestampStart = indexof(ResultDescription, "timestamp: ") + 11
-| extend timestampEnd = indexof(ResultDescription, "description", timestampStart) - 2
+| extend timestampStart = indexof(ResultDescription, '"timestamp": "') + strlen('"timestamp": "')
+| extend timestampEnd = indexof(ResultDescription, "}", timestampStart) - 1
 | extend timestamp = substring(ResultDescription, timestampStart, timestampEnd - timestampStart)
 ```
 
@@ -167,13 +161,13 @@ and fill in the remaining details:
 
 - **Measure**: "Table rows"
 - **Aggregation type**: "Count"
-- **Aggregation granularity** : "15 minutes"
+- **Aggregation granularity** : "5 minutes"
 
 #### Alert logic
 
 - **Operator**: "Greater than"
 - **Threshold value**: "10"
-- **Frequency of evaluation**: "15 minutes"
+- **Frequency of evaluation**: "5 minutes"
 
 ### Action
 
