@@ -68,8 +68,8 @@ def callback():
     token = oauth.auth0.authorize_access_token()
     session["user"] = token
     log("the user log in")
-    if not 'user' in session:
-        app.logger.info("the user has unauthorized attempt")
+    if token == None:
+        app.logger.warning("the user has unauthorized attempt")
         print("the user has unauthorized attempt")
     return redirect("/")
 
